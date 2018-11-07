@@ -5,7 +5,7 @@ import { getCategories, getProducts } from './api/gousto.js';
 
 import Nav from 'components/Nav.js';
 import Filter from 'components/Filter.js';
-import List from 'components/List.js';
+import ProductList from 'components/ProductList.js';
 
 const Home = () => 
   <div>Please pick a category above</div>
@@ -56,7 +56,7 @@ class App extends Component {
             />
             <Route
               path="/categories/:id"
-              render={({match})=><List
+              render={({match})=><ProductList
                 products={products}
                 filterString={filterString}
                 match={match}

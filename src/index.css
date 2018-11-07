@@ -451,17 +451,14 @@ section {
     margin-right: 25px;
     padding: 5px 0; }
 
-.List ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0; }
-
-.List li {
-  display: block;
-  padding: 5px 0; }
-
 .Filter {
   margin-bottom: 2rem; }
   .Filter input {
     padding: 15px;
     font-size: 1.5rem; }
+
+.ProductList__item {
+  margin-bottom: 1rem; }
+  .ProductList__item__title {
+    margin: 0 0 .5rem;
+    cursor: pointer; }
