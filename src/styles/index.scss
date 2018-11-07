@@ -2,3 +2,10 @@
 @import './normalize/variables';
 @import './normalize/normalize';
 @import './normalize/vertical-rhythm';
+
+@import './base/variables';
+@import './base/base';
+
+@import './components/nav';
+@import './components/list';
+@import './components/filter';
