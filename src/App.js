@@ -16,7 +16,8 @@ class App extends Component {
     categories: undefined,
     products: undefined,
     currentCategoryId: undefined,
-    currentProductId: undefined 
+    currentProductId: undefined,
+    filterString: ''
   }
 
   componentDidMount() {
@@ -33,7 +34,7 @@ class App extends Component {
   }
   
   render() {
-    let { categories, products, currentCategoryId } = this.state;
+    let { categories, products, currentCategoryId, filterString } = this.state;
     
     // todo: get currentCategoryId from the URL and 1) filter products here 2) only render Filter if a category is selected
 
@@ -45,7 +46,9 @@ class App extends Component {
             <Nav
               items={categories}
             />}
-            <Filter />
+            <Filter
+              onTextChange={text => this.setState({ filterString: text })}
+            />
             <Route
               exact
               path="/"
@@ -55,6 +58,7 @@ class App extends Component {
               path="/categories/:id"
               render={({match})=><List
                 products={products}
+                filterString={filterString}
                 match={match}
               />}
             />

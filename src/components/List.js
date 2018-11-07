@@ -3,7 +3,9 @@ import React, { Component } from 'react';
 const List = (props) => {
   // todo: do this filtering in the parent
   let filteredItems = props.products
-  ? props.products.filter(product => product.categories.some(cat => cat.id === props.match.params.id))
+  ? props.products
+    .filter(product => product.categories.some(cat => cat.id === props.match.params.id))
+    .filter(item => item.title.toLowerCase().includes(props.filterString.toLowerCase()))
   : undefined;
 
   return (
