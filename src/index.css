@@ -432,7 +432,7 @@ a {
     color: #f6323e;
     text-decoration: underline; }
 
-section {
+.container {
   background-color: white;
   max-width: 800px;
   margin: 50px auto;
@@ -458,7 +458,7 @@ section {
     font-size: 1.5rem; }
 
 .ProductList__item {
-  margin-bottom: 1rem; }
+  margin-bottom: .5rem; }
   .ProductList__item__title {
     margin: 0 0 .5rem;
     cursor: pointer; }

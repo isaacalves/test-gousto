@@ -7,60 +7,67 @@ import Nav from 'components/Nav.js';
 import Filter from 'components/Filter.js';
 import ProductList from 'components/ProductList.js';
 
-const Home = () => 
-  <div>Please pick a category above</div>
+import Products from 'api/__mocks__/products.json';
+import Categories from 'api/__mocks__/categories.json';
+
 
 class App extends Component {
 
   state = {
     categories: undefined,
     products: undefined,
-    currentCategoryId: undefined,
-    currentProductId: undefined,
     filterString: ''
   }
 
   componentDidMount() {
     Promise.all([
-      getCategories().then(res => res.json()),
-      getProducts().then(res => res.json())
+      // getCategories().then(res => res.json()),
+      // getProducts().then(res => res.json())
+      Categories,
+      Products
     ])
       .then((res) => {
         this.setState({
-          categories: res[0].data,
-          products: res[1].data
+          categories: res[0].data.map(({id, title}) => { return { id, title }}),
+          products: res[1].data.map(({id, categories, description, title}) => {
+            return { id, categories, description, title }
+          })
         })
       })
   }
-  
+      
   render() {
-    let { categories, products, currentCategoryId, filterString } = this.state;
-    
-    // todo: get currentCategoryId from the URL and 1) filter products here 2) only render Filter if a category is selected
-
+    let { categories, products, filterString } = this.state;
+  
     return (
       <Router>
         <div className="App">
-          <section>
+          <section className="container">
             {categories &&
-            <Nav
-              items={categories}
-            />}
-            <Filter
-              onTextChange={text => this.setState({ filterString: text })}
-            />
+            <Nav items={categories} />}
             <Route
               exact
               path="/"
-              component={Home}
+              render={() => <div>Please pick a category above</div>}
             />
             <Route
               path="/categories/:id"
-              render={({match})=><ProductList
-                products={products}
-                filterString={filterString}
-                match={match}
-              />}
+              render={({match})=>
+                <>
+                  <Filter
+                    onTextChange={text => this.setState({filterString: text})}
+                  />
+                  {products &&
+                  <ProductList
+                    items={products
+                      .filter(product => product.categories.some(cat => cat.id === match.params.id))
+                      .filter(item => item.title.toLowerCase().includes(filterString.toLowerCase()))
+                    }
+                    match={match}// matched url (with current category)
+                  />
+                  }
+                </>
+              }
             />
           </section>
         </div>

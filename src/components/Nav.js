@@ -10,10 +10,7 @@ class Nav extends Component {
           {this.props.items &&
             this.props.items.map((item, key) => {
               return (
-                <li
-                  key={key}
-                  // className={item.id === this.props.currentItem && 'current'}
-                >
+                <li key={key}>
                   <Link to={`/categories/${item.id}`}>{item.title}</Link>
                 </li>
               )
