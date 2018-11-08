@@ -427,18 +427,28 @@ body {
   font-size: 14px; }
 
 a {
-  cursor: pointer; }
+  color: #000002;
+  cursor: pointer;
+  text-decoration: none; }
   a:hover, a:active, a:focus {
     color: #f6323e;
-    text-decoration: underline; }
+    text-decoration: none; }
 
 .container {
   background-color: white;
-  max-width: 800px;
-  margin: 50px auto;
+  margin: 10px;
   padding: 25px;
-  border-radius: 5px;
   box-shadow: 0 0 0 1px rgba(206, 186, 186, 0.25), 0 2px 3px rgba(0, 0, 0, 0.2); }
+
+@media screen and (min-width: 480px) {
+  .container {
+    margin: 25px;
+    border-radius: 5px; } }
+
+@media screen and (min-width: 768px) {
+  .container {
+    margin: 50px auto;
+    max-width: 700px; } }
 
 .Nav {
   margin-bottom: 2rem; }
@@ -450,6 +460,9 @@ a {
     display: inline-block;
     margin-right: 25px;
     padding: 5px 0; }
+    .Nav li.current a {
+      text-decoration: underline;
+      color: #f6323e; }
 
 .Filter {
   margin-bottom: 2rem; }

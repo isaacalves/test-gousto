@@ -11,5 +11,10 @@
     display: inline-block;
     margin-right: 25px;
     padding: 5px 0;
+
+    &.current a {
+      text-decoration: underline;
+      color: $red;
+    }
   }
 }

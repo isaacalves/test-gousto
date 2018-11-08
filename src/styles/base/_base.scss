@@ -6,25 +6,35 @@ body {
 }
 
 a {
+  color: $black;
   cursor: pointer;
+  text-decoration: none;
 
   &:hover,
   &:active,
   &:focus {
     color: $red;
-    text-decoration: underline;
+    text-decoration: none;
   }
-}
-
-nav {
-
 }
 
 .container {
   background-color: white;
-  max-width: 800px;
-  margin: 50px auto;
+  margin: 10px;
   padding: 25px;
-  border-radius: 5px;
   box-shadow: 0 0 0 1px rgba(206, 186, 186, 0.25), 0 2px 3px rgba(0,0,0,.2);
+}
+
+@media screen and (min-width: $screen-sm) {
+  .container {
+    margin: 25px;
+    border-radius: 5px;
+  }
+}
+
+@media screen and (min-width: $screen-md) {
+  .container {
+    margin: 50px auto;
+    max-width: 700px;
+  }
 }
