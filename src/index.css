@@ -420,6 +420,9 @@ template {
 [hidden] {
   display: none; }
 
+* {
+  box-sizing: border-box; }
+
 body {
   background-color: #7290ff;
   color: #000002;

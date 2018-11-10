@@ -7,7 +7,7 @@ class NavItem extends Component {
 
     return (
       <li className={className}>
-        <Link to={`/categories/${this.props.id}`}>{this.props.title}</Link>
+        <Link to={`/categories/${this.props.slug}`}>{this.props.title}</Link>
       </li>
     )
   }
@@ -22,9 +22,9 @@ class Nav extends Component {
           {this.props.items &&
             this.props.items.map((item, key) => <NavItem
               key={key}
-              id={item.id}
+              slug={item.slug}
               title={item.title}
-              isActive={this.props.currentItemId === item.id}
+              isActive={this.props.currentItemSlug === item.slug}
             />)
           }
         </ul>
