@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-class ProductItem extends Component {
+class ProductItem extends PureComponent {
   state = {
     isActive: false
   }
@@ -11,7 +11,7 @@ class ProductItem extends Component {
     return (
       <>
         <div className="ProductList__item">
-          <div className="ProductList__item__title"onClick={() => this.setState({isActive: !this.state.isActive})}>
+          <div className="ProductList__item__title" onClick={() => this.setState({isActive: !this.state.isActive})}>
             <strong>{this.props.title}</strong>
           </div>
           {isActive &&

@@ -1,8 +1,8 @@
 import React from 'react';
-import NavLink from './NavLink.js';
 import PropTypes from 'prop-types';
+import NavLink from './NavLink.js';
 
-const Nav = ({items}) =>
+const Nav = ({items, currentItemSlug}) =>
   <nav className="Nav">
     <h2 className="Nav__title">Categories</h2>
     <ul>
@@ -12,8 +12,9 @@ const Nav = ({items}) =>
             <NavLink 
               to={`/${item.slug}`}
               label={item.title}
+              isCurrent={item.slug === currentItemSlug}
             />
-          </li>
+          </li>  
         )
       }
     </ul>
@@ -24,6 +25,7 @@ Nav.propTypes = {
     slug: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
   })).isRequired,
+  currentItemSlug: PropTypes.string.isRequired
 }
 
 export default Nav;

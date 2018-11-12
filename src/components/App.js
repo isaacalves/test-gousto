@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import slugify from 'slugify';
 
 import Nav from 'components/Nav.js';
-import ProductList from 'components/ProductList.js';
+import ProductPage from 'components/ProductPage.js';
 
 // import { getCategories, getProducts } from './api/gousto.js';
 import Products from 'api/__mocks__/products.json';
@@ -38,15 +38,18 @@ class App extends Component {
         })
       })
   }
-      
+  
   render() {
     let { categories, products, filterString } = this.state;
     
+    let match = this.context.router.route.location.pathname.match(/\/([^\/]+)\/?$/); 
+    let currentCategorySlug = match ? match[1] : undefined;
+
     return (
       <div className="App">
         <section className="container">
           {categories &&
-          <Nav items={categories} />}
+          <Nav items={categories} currentItemSlug={currentCategorySlug} />}
           <Route
             exact
             path="/"
@@ -55,7 +58,7 @@ class App extends Component {
           <Route
             path="/:slug"
             render={({match})=> 
-              <ProductList
+              <ProductPage
                 products={products}
                 categories={categories}
                 matchedSlug={match.params.slug}
