@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import slugify from 'slugify';
 
 import Nav from 'components/Nav.js';
-import Filter from 'components/Filter.js';
 import ProductList from 'components/ProductList.js';
 
 // import { getCategories, getProducts } from './api/gousto.js';
@@ -41,45 +40,27 @@ class App extends Component {
   }
       
   render() {
-    console.log('render')
     let { categories, products, filterString } = this.state;
-    let match = this.context.router.route.location.pathname.match(/\/([^\/]+)\/?$/);    
-    let currentCategorySlug = match ? match[1] : undefined;
-    
     return (
       <div className="App">
         <section className="container">
           {categories &&
-          <Nav items={categories} currentItem={currentCategorySlug} />}
+          <Nav items={categories} />}
           <Route
             exact
             path="/"
             render={() => <div>Please pick a category above</div>}
           />
           <Route
-            path="/categories/:slug"
-            render={({match})=> {
-              let currentCategory = categories.find(cat => cat.slug === match.params.slug);
-              // todo: handle routing when url is wrong (can't find category). at the moment is not rendering anything
-              if (!currentCategory) { return false; }
-              return (
-                <>
-                  <Filter
-                    onTextChange={text => this.setState({filterString: text})}
-                  />
-                  {products &&
-                  <ProductList
-                    items={products
-                      .filter(product => product.categories.some(cat => cat.id === currentCategory.id))
-                      .filter(item => item.title.toLowerCase().includes(filterString.toLowerCase()))
-                    }
-                    match={match}// matched url (with current category)
-                  />
-                  }
-                </>
-              )
-            }
-              
+            path="/:slug"
+            render={({match})=> 
+              <ProductList
+                products={products}
+                categories={categories}
+                match={match}
+                filterString={filterString}
+                onFilterTextChange={text => this.setState({filterString: text})} // use redux
+              />
             }
           />
         </section>

@@ -1,47 +1,40 @@
 import React, { Component } from 'react';
+import ProductItem from 'components/ProductItem';
+import Filter from 'components/Filter';
 
-class ProductItem extends Component {
-  state = {
-    isActive: false
-  }
+const ProductList = ({products, categories, match, filterString, onFilterTextChange}) => {
+  let currentCategory = categories.find(cat => cat.slug === match.params.slug);
+  let filteredProducts = !currentCategory ? [] : products
+    .filter(product => product.categories.some(cat => cat.id === currentCategory.id))
+    .filter(product => product.title.toLowerCase().includes(filterString.toLowerCase()))
 
-  render() {
-    let { isActive } = this.state;
-
-    return (
-      <>
-        <div className="ProductList__item">
-          <div className="ProductList__item__title"onClick={() => this.setState({isActive: !this.state.isActive})}>
-            <strong>{this.props.title}</strong>
-          </div>
-          {isActive &&
-            <div>{this.props.description}</div>
+  return (
+    <>
+      {currentCategory &&
+        <Filter
+          onTextChange={onFilterTextChange}
+        /> 
+      }
+      <div className="ProductList">
+        <h2 className="ProductList__title">Products</h2>
+        <div>
+          {filteredProducts.length
+            ? filteredProducts.map((product, key) => {
+                return (
+                  <ProductItem
+                    key={`${product.id}-${key}`}
+                    title={product.title}
+                    description={product.description}
+                  />
+                )
+              })
+            : <div>No products found.</div>
           }
         </div>
-      </>
-    )
-  }
+      </div>
+    </>
+  )
 }
-
-const ProductList = ({items}) =>
-  <div className="ProductList">
-    <h2 className="ProductList__title">Products</h2>
-    <div>
-      {items.length
-        ? items.map((item, key) => {
-            return (
-              <ProductItem
-                // unique key so it resets the item's state when List is rendered
-                key={`${item.id}-${key}`}
-                title={item.title}
-                description={item.description}
-              />
-            )
-          })
-        : <div>No products found.</div>
-      }
-    </div>
-  </div>
 
 export default ProductList;
 

@@ -463,7 +463,7 @@ a {
     display: inline-block;
     margin-right: 25px;
     padding: 5px 0; }
-    .Nav li.current a {
+    .Nav li .current a {
       text-decoration: underline;
       color: #f6323e; }
 
