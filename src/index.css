@@ -478,3 +478,5 @@ a {
   .ProductList__item__title {
     margin: 0 0 .5rem;
     cursor: pointer; }
+  .ProductList__item__description {
+    padding: 0 0 .5rem; }

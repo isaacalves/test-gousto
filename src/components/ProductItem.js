@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import {Collapse} from 'react-collapse';
 
 class ProductItem extends PureComponent {
   state = {
@@ -14,9 +15,9 @@ class ProductItem extends PureComponent {
           <div className="ProductList__item__title" onClick={() => this.setState({isActive: !this.state.isActive})}>
             <strong>{this.props.title}</strong>
           </div>
-          {isActive &&
-            <div>{this.props.description}</div>
-          }
+          <Collapse isOpened={isActive}>
+            <div className="ProductList__item__description">{this.props.description}</div>
+          </Collapse>
         </div>
       </>
     )
