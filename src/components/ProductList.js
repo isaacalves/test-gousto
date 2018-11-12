@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import ProductItem from 'components/ProductItem';
 import Filter from 'components/Filter';
+import PropTypes from 'prop-types';
 
-const ProductList = ({products, categories, match, filterString, onFilterTextChange}) => {
-  let currentCategory = categories.find(cat => cat.slug === match.params.slug);
+const ProductList = ({products, categories, matchedSlug, filterString, onFilterTextChange}) => {
+  let currentCategory = categories.find(cat => cat.slug === matchedSlug);
   let filteredProducts = !currentCategory ? [] : products
     .filter(product => product.categories.some(cat => cat.id === currentCategory.id))
     .filter(product => product.title.toLowerCase().includes(filterString.toLowerCase()))
@@ -34,6 +35,22 @@ const ProductList = ({products, categories, match, filterString, onFilterTextCha
       </div>
     </>
   )
+}
+
+ProductList.propTypes = {
+  products: PropTypes.arrayOf(PropTypes.shape({
+    categories: PropTypes.array.isRequired,
+    description: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+  })).isRequired,
+  categories: PropTypes.arrayOf(PropTypes.shape({
+    slug: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+  })).isRequired,
+  matchedSlug: PropTypes.string.isRequired,
+  filterString: PropTypes.string.isRequired,
+  onFilterTextChange: PropTypes.func.isRequired
 }
 
 export default ProductList;

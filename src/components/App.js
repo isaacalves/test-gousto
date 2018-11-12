@@ -41,6 +41,7 @@ class App extends Component {
       
   render() {
     let { categories, products, filterString } = this.state;
+    
     return (
       <div className="App">
         <section className="container">
@@ -57,7 +58,7 @@ class App extends Component {
               <ProductList
                 products={products}
                 categories={categories}
-                match={match}
+                matchedSlug={match.params.slug}
                 filterString={filterString}
                 onFilterTextChange={text => this.setState({filterString: text})} // use redux
               />

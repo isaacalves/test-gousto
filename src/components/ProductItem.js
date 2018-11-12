@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
-export default class extends Component {
+class ProductItem extends Component {
   state = {
     isActive: false
   }
@@ -21,3 +22,10 @@ export default class extends Component {
     )
   }
 }
+
+ProductItem.propTypes = {
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired
+}
+
+export default ProductItem;
