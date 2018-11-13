@@ -27,7 +27,7 @@ Nav.propTypes = {
       title: PropTypes.string.isRequired
     })
   ).isRequired,
-  currentItemSlug: PropTypes.string.isRequired
+  currentItemSlug: PropTypes.string
 };
 
 export default Nav;
