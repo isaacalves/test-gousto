@@ -13,18 +13,18 @@ import Categories from 'api/__mocks__/categories.json';
 class App extends Component {
   state = {
     categories: [],
-    products: [],
-    filterString: ''
+    products: []
   };
 
   componentDidMount() {
-    // if can't connect to API, use mockies
     Promise.all([
       // getCategories().then(res => res.json()),
       // getProducts().then(res => res.json())
       Categories,
       Products
     ]).then(res => {
+      // console.log('res[0].data: ', res[0].data);
+
       this.setState({
         categories: res[0].data.map(({ id, title }) => {
           return { slug: slugify(title, { lower: true }), id, title };
@@ -37,7 +37,7 @@ class App extends Component {
   }
 
   render() {
-    let { categories, products, filterString } = this.state;
+    let { categories, products } = this.state;
 
     let match = this.context.router.route.location.pathname.match(
       /\/([^\/]+)\/?$/
@@ -62,10 +62,6 @@ class App extends Component {
                 products={products}
                 categories={categories}
                 matchedSlug={match.params.slug}
-                filterString={filterString}
-                onFilterTextChange={text =>
-                  this.setState({ filterString: text })
-                } // use redux
               />
             )}
           />

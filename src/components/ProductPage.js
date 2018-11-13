@@ -7,23 +7,18 @@ const ProductPage = ({
   products,
   categories,
   matchedSlug,
-  filterString,
   onFilterTextChange
 }) => {
   let currentCategory = categories.find(cat => cat.slug === matchedSlug);
   let filteredProducts = !currentCategory
     ? []
-    : products
-        .filter(product =>
-          product.categories.some(cat => cat.id === currentCategory.id)
-        )
-        .filter(product =>
-          product.title.toLowerCase().includes(filterString.toLowerCase())
-        );
+    : products.filter(product =>
+        product.categories.some(cat => cat.id === currentCategory.id)
+      );
 
   return (
     <>
-      {currentCategory && <Filter onTextChange={onFilterTextChange} />}
+      {currentCategory && <Filter />}
       <ProductList products={filteredProducts} />
     </>
   );
@@ -43,9 +38,7 @@ ProductPage.propTypes = {
       title: PropTypes.string.isRequired
     })
   ).isRequired,
-  matchedSlug: PropTypes.string.isRequired,
-  filterString: PropTypes.string.isRequired,
-  onFilterTextChange: PropTypes.func.isRequired
+  matchedSlug: PropTypes.string.isRequired
 };
 
 export default ProductPage;

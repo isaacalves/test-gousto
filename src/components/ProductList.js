@@ -2,20 +2,26 @@ import React from 'react';
 import ProductItem from 'components/ProductItem';
 import PropTypes from 'prop-types';
 
-const ProductList = ({ products }) => (
+import { connect } from 'react-redux';
+
+const ProductList = ({ products, filterString }) => (
   <div className="ProductList">
     <h2 className="ProductList__title">Products</h2>
     <div>
       {products.length ? (
-        products.map((product, key) => {
-          return (
-            <ProductItem
-              key={`${product.id}-${key}`}
-              title={product.title}
-              description={product.description}
-            />
-          );
-        })
+        products
+          .filter(product =>
+            product.title.toLowerCase().includes(filterString.toLowerCase())
+          )
+          .map((product, key) => {
+            return (
+              <ProductItem
+                key={`${product.id}-${key}`}
+                title={product.title}
+                description={product.description}
+              />
+            );
+          })
       ) : (
         <div>No products found.</div>
       )}
@@ -33,4 +39,10 @@ ProductList.propTypes = {
   ).isRequired
 };
 
-export default ProductList;
+const mapStateToProps = state => {
+  return {
+    filterString: state.filterString
+  };
+};
+
+export default connect(mapStateToProps)(ProductList);
