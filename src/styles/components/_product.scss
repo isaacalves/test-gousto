@@ -1,14 +1,14 @@
-.ProductList {  
+.ProductList {
   &__item {
-    margin-bottom: .5rem;
+    margin-bottom: 0.5rem;
 
     &__title {
-      margin: 0 0 .5rem;
+      margin: 0 0 0.5rem;
       cursor: pointer;
     }
 
     &__description {
-      padding: 0 0 .5rem;
+      padding: 0 0 0.5rem;
     }
   }
 }

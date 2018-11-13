@@ -10,14 +10,12 @@ import ProductPage from 'components/ProductPage.js';
 import Products from 'api/__mocks__/products.json';
 import Categories from 'api/__mocks__/categories.json';
 
-
 class App extends Component {
-
   state = {
     categories: [],
     products: [],
     filterString: ''
-  }
+  };
 
   componentDidMount() {
     // if can't connect to API, use mockies
@@ -26,30 +24,32 @@ class App extends Component {
       // getProducts().then(res => res.json())
       Categories,
       Products
-    ])
-      .then((res) => {
-        this.setState({
-          categories: res[0].data.map(({id, title}) => {
-            return { slug: slugify(title, { lower: true }), id, title }
-          }),
-          products: res[1].data.map(({id, categories, description, title}) => {
-            return { id, categories, description, title }
-          })
+    ]).then(res => {
+      this.setState({
+        categories: res[0].data.map(({ id, title }) => {
+          return { slug: slugify(title, { lower: true }), id, title };
+        }),
+        products: res[1].data.map(({ id, categories, description, title }) => {
+          return { id, categories, description, title };
         })
-      })
+      });
+    });
   }
-  
+
   render() {
     let { categories, products, filterString } = this.state;
-    
-    let match = this.context.router.route.location.pathname.match(/\/([^\/]+)\/?$/); 
+
+    let match = this.context.router.route.location.pathname.match(
+      /\/([^\/]+)\/?$/
+    );
     let currentCategorySlug = match ? match[1] : undefined;
 
     return (
       <div className="App">
         <section className="container">
-          {categories &&
-          <Nav items={categories} currentItemSlug={currentCategorySlug} />}
+          {categories && (
+            <Nav items={categories} currentItemSlug={currentCategorySlug} />
+          )}
           <Route
             exact
             path="/"
@@ -57,15 +57,17 @@ class App extends Component {
           />
           <Route
             path="/:slug"
-            render={({match})=> 
+            render={({ match }) => (
               <ProductPage
                 products={products}
                 categories={categories}
                 matchedSlug={match.params.slug}
                 filterString={filterString}
-                onFilterTextChange={text => this.setState({filterString: text})} // use redux
+                onFilterTextChange={text =>
+                  this.setState({ filterString: text })
+                } // use redux
               />
-            }
+            )}
           />
         </section>
       </div>
