@@ -3,13 +3,19 @@ import ProductList from 'components/ProductList';
 import Filter from 'components/Filter';
 import PropTypes from 'prop-types';
 
-const ProductsPage = ({ products, categories, matchedSlug }) => {
+import { connect } from 'react-redux';
+
+const ProductsPage = ({ products, categories, matchedSlug, filterString }) => {
   let currentCategory = categories.find(cat => cat.slug === matchedSlug);
   let filteredProducts = !currentCategory
     ? []
-    : products.filter(product =>
-        product.categories.some(cat => cat.id === currentCategory.id)
-      );
+    : products
+        .filter(product =>
+          product.categories.some(cat => cat.id === currentCategory.id)
+        )
+        .filter(product =>
+          product.title.toLowerCase().includes(filterString.toLowerCase())
+        );
 
   return (
     <>
@@ -36,4 +42,10 @@ ProductsPage.propTypes = {
   matchedSlug: PropTypes.string.isRequired
 };
 
-export default ProductsPage;
+const mapStateToProps = state => {
+  return {
+    filterString: state.filterString
+  };
+};
+
+export default connect(mapStateToProps)(ProductsPage);
