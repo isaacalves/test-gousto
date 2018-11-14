@@ -26,25 +26,14 @@ class App extends Component {
       // getProducts().then(res => res.json())
       Categories,
       Products
-    ]).then(res => {
-      // console.log('res[0].data: ', res[0].data);
-
-      // this.setState({
-      //   categories: res[0].data.map(({ id, title }) => {
-      //     return { slug: slugify(title, { lower: true }), id, title };
-      //   }),
-      //   products: res[1].data.map(({ id, categories, description, title }) => {
-      //     return { id, categories, description, title };
-      //   })
-      // });
-
+    ]).then(([categories, products]) => {
       this.props.addCategories(
-        res[0].data.map(({ id, title }) => {
+        categories.data.map(({ id, title }) => {
           return { slug: slugify(title, { lower: true }), id, title };
         })
       );
       this.props.addProducts(
-        res[1].data.map(({ id, categories, description, title }) => {
+        products.data.map(({ id, categories, description, title }) => {
           return { id, categories, description, title };
         })
       );
