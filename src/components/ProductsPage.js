@@ -3,12 +3,7 @@ import ProductList from 'components/ProductList';
 import Filter from 'components/Filter';
 import PropTypes from 'prop-types';
 
-const ProductPage = ({
-  products,
-  categories,
-  matchedSlug,
-  onFilterTextChange
-}) => {
+const ProductsPage = ({ products, categories, matchedSlug }) => {
   let currentCategory = categories.find(cat => cat.slug === matchedSlug);
   let filteredProducts = !currentCategory
     ? []
@@ -24,7 +19,7 @@ const ProductPage = ({
   );
 };
 
-ProductPage.propTypes = {
+ProductsPage.propTypes = {
   products: PropTypes.arrayOf(
     PropTypes.shape({
       description: PropTypes.string.isRequired,
@@ -41,4 +36,4 @@ ProductPage.propTypes = {
   matchedSlug: PropTypes.string.isRequired
 };
 
-export default ProductPage;
+export default ProductsPage;

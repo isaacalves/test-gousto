@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import { connect } from 'react-redux';
+
+import { updateTextFilter } from 'actions';
 
 const Filter = ({ filterString, updateTextFilter }) => (
   <div className="Filter">
@@ -28,10 +29,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     updateTextFilter: value => {
-      dispatch({
-        type: 'ON_FILTER_TEXT_UPDATE',
-        value: value
-      });
+      dispatch(updateTextFilter(value));
     }
   };
 };
