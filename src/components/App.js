@@ -15,11 +15,6 @@ import Categories from 'api/__mocks__/categories.json';
 import { addCategories, addProducts } from 'actions';
 
 class App extends Component {
-  state = {
-    categories: [],
-    products: []
-  };
-
   componentDidMount() {
     Promise.all([
       // getCategories().then(res => res.json()),
