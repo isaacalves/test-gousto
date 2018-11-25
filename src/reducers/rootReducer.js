@@ -1,10 +1,12 @@
+import { combineReducer } from 'redux';
+
 const initState = {
   filterString: '',
   categories: [],
   products: []
 };
 
-const rootReducer = (state = initState, action = {}) => {
+const otherReducer = (state = initState, action = {}) => {
   switch (action.type) {
     case 'UPDATE_TEXT_FILTER':
       return {
@@ -25,5 +27,12 @@ const rootReducer = (state = initState, action = {}) => {
       return state;
   }
 };
+
+const rootReducer = combineReducers({
+  otherReducer,
+  routeReducer
+});
+
+const routeReducer = (state, action) => state;
 
 export default rootReducer;

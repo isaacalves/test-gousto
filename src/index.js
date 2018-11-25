@@ -3,13 +3,19 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
 
+import { applyMiddleware, compose, createStore } from 'redux';
+import { createBrowserHistory } from 'history';
+import { routerMiddleware, connectRouter } from 'connected-react-router';
+import { Provider } from 'react-redux';
+
 import App from 'components/App';
 
 import './index.css';
 
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import rootReducer from 'reducers';
+const history = createBrowserHistory();
+const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+import rootReducer from 'reducers/rootReducer';
 
 const store = createStore(rootReducer);
 
