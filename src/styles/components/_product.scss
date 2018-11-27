@@ -1,6 +1,7 @@
 .ProductList {
   &__item {
     margin-bottom: 0.5rem;
+    overflow: hidden;
 
     &__title {
       margin: 0 0 0.5rem;
@@ -8,7 +9,7 @@
     }
 
     &__description {
-      padding: 0 0 0.5rem;
+      // padding: 0 0 0.5rem;
     }
   }
 }

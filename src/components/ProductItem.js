@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Collapse } from 'react-collapse';
+import { Spring, animated } from 'react-spring';
+
+// Why <Spring force ... ?
+// Because we are rendering the spring with the same props on add/remove text
+// (height: 'auto'), so it has no reason to update its animations. This is an
+// edge case unfortunately. More on that here: https://github.com/drcmda/react-spring/blob/master/API-OVERVIEW.md#animating-auto
 
 const ProductItem = ({ title, description }) => {
   const [isActive, toggleActive] = useState(false);
@@ -12,9 +17,18 @@ const ProductItem = ({ title, description }) => {
       >
         <strong>{title}</strong>
       </div>
-      <Collapse isOpened={isActive}>
-        <div className="ProductList__item__description">{description}</div>
-      </Collapse>
+      <Spring
+        native
+        force
+        from={{ height: 0 }}
+        to={{ height: isActive ? 'auto' : 0 }}
+      >
+        {props => (
+          <animated.div className="item" style={props}>
+            <div className="ProductList__item__description">{description}</div>
+          </animated.div>
+        )}
+      </Spring>
     </div>
   );
 };
