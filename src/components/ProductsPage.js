@@ -44,7 +44,7 @@ ProductsPage.propTypes = {
 
 const mapStateToProps = state => {
   return {
-    filterString: state.filterString
+    filterString: state.app.filterString
   };
 };
 
