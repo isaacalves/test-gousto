@@ -1,10 +1,14 @@
+import { combineReducers } from 'redux';
+import { connectRouter } from 'connected-react-router';
+
 const initState = {
   filterString: '',
   categories: [],
   products: []
 };
 
-const rootReducer = (state = initState, action = {}) => {
+const appReducer = (state = initState, action = {}) => {
+  // console.log(' appReducer, action.type: ', action.type)
   switch (action.type) {
     case 'UPDATE_TEXT_FILTER':
       return {
@@ -25,5 +29,11 @@ const rootReducer = (state = initState, action = {}) => {
       return state;
   }
 };
+
+const rootReducer = history =>
+  combineReducers({
+    app: appReducer,
+    router: connectRouter(history)
+  });
 
 export default rootReducer;

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom'; // Router is not used but needs to be here to work?
-import { withRouter } from 'react-router';
+import { Route } from 'react-router-dom';
+import { ConnectedRouter } from 'connected-react-router';
 import PropTypes from 'prop-types';
 import slugify from 'slugify';
 import { connect } from 'react-redux';
@@ -37,42 +37,38 @@ class App extends Component {
 
   render() {
     let { categories, products } = this.props;
-    let match = this.context.router.route.location.pathname.match(
-      /\/([^\/]+)\/?$/
-    );
-    let currentCategorySlug = match ? match[1] : undefined;
 
     return (
-      <div className="App">
-        <section className="container">
-          {categories && (
-            <Nav items={categories} currentItemSlug={currentCategorySlug} />
-          )}
-          <Route
-            exact
-            path="/"
-            render={() => <div>Please pick a category above</div>}
-          />
-          <Route
-            path="/:slug"
-            render={({ match }) => (
-              <ProductsPage
-                products={products}
-                categories={categories}
-                matchedSlug={match.params.slug}
-              />
-            )}
-          />
-        </section>
-      </div>
+      <ConnectedRouter history={this.props.history}>
+        <div className="App">
+          <section className="container">
+            {categories && <Nav items={categories} />}
+            <Route
+              exact
+              path="/"
+              render={() => <div>Please pick a category above</div>}
+            />
+            <Route
+              path="/:slug"
+              render={({ match }) => (
+                <ProductsPage
+                  products={products}
+                  categories={categories}
+                  matchedSlug={match.params.slug}
+                />
+              )}
+            />
+          </section>
+        </div>
+      </ConnectedRouter>
     );
   }
 }
 
 const mapStateToProps = state => {
   return {
-    categories: state.categories,
-    products: state.products
+    categories: state.app.categories,
+    products: state.app.products
   };
 };
 
@@ -91,9 +87,7 @@ App.contextTypes = {
   router: PropTypes.object
 };
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(App)
-);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);

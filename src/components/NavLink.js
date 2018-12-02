@@ -1,12 +1,14 @@
 import React, { PureComponent } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 class NavLink extends PureComponent {
   render() {
-    let { label, to, isCurrent } = this.props;
+    let { label, to, pathname } = this.props;
+
     return (
-      <div className={isCurrent ? 'current' : ''}>
+      <div className={to === pathname ? 'current' : ''}>
         <Link to={`${to}`}>{label}</Link>
       </div>
     );
@@ -18,4 +20,10 @@ NavLink.propTypes = {
   to: PropTypes.string.isRequired
 };
 
-export default NavLink;
+const mapStateToProps = state => {
+  return {
+    pathname: state.router.location.pathname
+  };
+};
+
+export default connect(mapStateToProps)(NavLink);
