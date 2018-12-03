@@ -13,11 +13,10 @@ import App from 'components/App';
 import './index.css';
 
 const history = createBrowserHistory();
-const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(
   rootReducer(history),
-  composeEnhancer(applyMiddleware(routerMiddleware(history)))
+  compose(applyMiddleware(routerMiddleware(history)))
 );
 
 ReactDOM.render(

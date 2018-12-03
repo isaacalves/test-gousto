@@ -18,6 +18,5 @@ Run `npm run build` (or `yarn build`)
 
 ## TO DO
 
-- find better name for the app reducer (everything except the router) and split into files
 - navigate with redux action? check: https://github.com/supasate/connected-react-router/blob/master/FAQ.md#how-to-navigate-with-redux-action
 - implement simple collapse element with react spring (check useSpring) and remove dependency

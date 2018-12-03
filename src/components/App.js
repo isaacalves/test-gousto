@@ -7,12 +7,10 @@ import { connect } from 'react-redux';
 
 import Nav from 'components/Nav.js';
 import ProductsPage from 'components/ProductsPage.js';
-
+import { addCategories, addProducts } from 'actions';
 // import { getCategories, getProducts } from './api/gousto.js';
 import Products from 'api/__mocks__/products.json';
 import Categories from 'api/__mocks__/categories.json';
-
-import { addCategories, addProducts } from 'actions';
 
 class App extends Component {
   componentDidMount() {
@@ -23,14 +21,19 @@ class App extends Component {
       Products
     ]).then(([categories, products]) => {
       this.props.addCategories(
-        categories.data.map(({ id, title }) => {
-          return { slug: slugify(title, { lower: true }), id, title };
-        })
+        categories.data.map(({ id, title }) => ({
+          slug: slugify(title, { lower: true }),
+          id,
+          title
+        }))
       );
       this.props.addProducts(
-        products.data.map(({ id, categories, description, title }) => {
-          return { id, categories, description, title };
-        })
+        products.data.map(({ id, categories, description, title }) => ({
+          id,
+          categories,
+          description,
+          title
+        }))
       );
     });
   }
@@ -65,27 +68,23 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    categories: state.app.categories,
-    products: state.app.products
-  };
+App.propTypes = {
+  history: PropTypes.object.isRequired
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    addCategories: arr => {
-      dispatch(addCategories(arr));
-    },
-    addProducts: arr => {
-      dispatch(addProducts(arr));
-    }
-  };
-};
+const mapStateToProps = state => ({
+  categories: state.main.categories,
+  products: state.main.products
+});
 
-App.contextTypes = {
-  router: PropTypes.object
-};
+const mapDispatchToProps = dispatch => ({
+  addCategories: arr => {
+    dispatch(addCategories(arr));
+  },
+  addProducts: arr => {
+    dispatch(addProducts(arr));
+  }
+});
 
 export default connect(
   mapStateToProps,

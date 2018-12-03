@@ -4,35 +4,31 @@ import { connect } from 'react-redux';
 
 import { updateTextFilter } from 'actions';
 
-const Filter = ({ filterString, updateTextFilter }) => (
+const Filter = ({ searchFilter, updateTextFilter }) => (
   <div className="Filter">
     <h2 className="Filter__title">Filter</h2>
     <input
       type="text"
       onChange={e => updateTextFilter(e.target.value)}
-      value={filterString}
+      value={searchFilter}
     />
   </div>
 );
 
 Filter.propTypes = {
-  filterString: PropTypes.string.isRequired,
+  searchFilter: PropTypes.string.isRequired,
   updateTextFilter: PropTypes.func.isRequired
 };
 
-const mapStateToProps = state => {
-  return {
-    filterString: state.app.filterString
-  };
-};
+const mapStateToProps = state => ({
+  searchFilter: state.main.searchFilter
+});
 
-const mapDispatchToProps = dispatch => {
-  return {
-    updateTextFilter: value => {
-      dispatch(updateTextFilter(value));
-    }
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  updateTextFilter: value => {
+    dispatch(updateTextFilter(value));
+  }
+});
 
 export default connect(
   mapStateToProps,
