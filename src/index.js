@@ -15,6 +15,8 @@ import './index.css';
 const history = createBrowserHistory();
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
+// console.log('wtfis this: ', composeEnhancer(applyMiddleware(routerMiddleware(history))));
+
 const store = createStore(
   rootReducer(history),
   composeEnhancer(applyMiddleware(routerMiddleware(history)))

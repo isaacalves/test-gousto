@@ -2,10 +2,9 @@ import React from 'react';
 import ProductList from 'components/ProductList';
 import Filter from 'components/Filter';
 import PropTypes from 'prop-types';
-
 import { connect } from 'react-redux';
 
-const ProductsPage = ({ products, categories, matchedSlug, filterString }) => {
+const ProductsPage = ({ products, categories, matchedSlug, searchFilter }) => {
   let currentCategory = categories.find(cat => cat.slug === matchedSlug);
   let filteredProducts = !currentCategory
     ? []
@@ -14,7 +13,7 @@ const ProductsPage = ({ products, categories, matchedSlug, filterString }) => {
           product.categories.some(cat => cat.id === currentCategory.id)
         )
         .filter(product =>
-          product.title.toLowerCase().includes(filterString.toLowerCase())
+          product.title.toLowerCase().includes(searchFilter.toLowerCase())
         );
 
   return (
@@ -42,10 +41,8 @@ ProductsPage.propTypes = {
   matchedSlug: PropTypes.string.isRequired
 };
 
-const mapStateToProps = state => {
-  return {
-    filterString: state.app.filterString
-  };
-};
+const mapStateToProps = state => ({
+  searchFilter: state.main.searchFilter
+});
 
 export default connect(mapStateToProps)(ProductsPage);
